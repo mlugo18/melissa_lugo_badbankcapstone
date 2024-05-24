@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const url         = 'mongodb+srv://badbankapp24:pFujZDucQsU6AV6I@bankbankdb.fzwqayk.mongodb.net/myproject?retryWrites=true&w=majority&appName=BankBankDB';
+const url         = process.env.MONGODB_URI;
 
 //Defines user schema for user collection
 const userSchema = new mongoose.Schema({
