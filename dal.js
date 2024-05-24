@@ -1,78 +1,83 @@
-const MongoClient = require('mongodb').MongoClient;
-const url         = 'mongodb://localhost:27017';
-let db            = null;
- 
-// connect to mongo
-MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
-    console.log("Connected successfully to db server");
+const mongoose = require('mongoose');
+const url         = 'mongodb+srv://badbankapp24:pFujZDucQsU6AV6I@bankbankdb.fzwqayk.mongodb.net/myproject?retryWrites=true&w=majority&appName=BankBankDB';
 
-    // connect to myproject database
-    db = client.db('myproject');
+//Defines user schema for user collection
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    balance: { type: Number, default: 0 }
 });
 
-// create user account
-function create(name, email, password){
-    return new Promise((resolve, reject) => {    
-        const collection = db.collection('users');
-        const doc = {name, email, password, balance: 0};
-        collection.insertOne(doc, {w:1}, function(err, result) {
-            err ? reject(err) : resolve(doc);
-        });    
+const User = mongoose.model('User', userSchema);
+
+// Establish a connection to MongoDB Atlas
+const connectionParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+};
+
+mongoose.connect(url, connectionParams)
+    .then(() => {
+        console.log('Connected to AtlasDB');
     })
+    .catch((error) => {
+        console.log('Connection failed', error);
+    });
+
+// Create user account
+async function create(name, email, password) {
+    try {
+        const newUser = new User({ name, email, password });
+        const doc = await newUser.save();
+        return doc;
+    } catch (err) {
+        throw err;
+    }
 }
 
-// find user account
-function find(email){
-    return new Promise((resolve, reject) => {    
-        const customers = db
-            .collection('users')
-            .find({email: email})
-            .toArray(function(err, docs) {
-                err ? reject(err) : resolve(docs);
-        });    
-    })
+// Find user account
+async function find(email) {
+    try {
+        const docs = await User.find({ email: email }).exec();
+        return docs;
+    } catch (err) {
+        throw err;
+    }
 }
 
-// find user account
-function findOne(email){
-    return new Promise((resolve, reject) => {    
-        const customers = db
-            .collection('users')
-            .findOne({email: email})
-            .then((doc) => resolve(doc))
-            .catch((err) => reject(err));    
-    })
+// Find one user account
+async function findOne(email) {
+    try {
+        const doc = await User.findOne({ email: email }).exec();
+        return doc;
+    } catch (err) {
+        throw err;
+    }
 }
 
-// update - deposit/withdraw amount
-function update(email, amount){
-    return new Promise((resolve, reject) => {    
-        const customers = db
-            .collection('users')            
-            .findOneAndUpdate(
-                {email: email},
-                { $inc: { balance: amount}},
-                { returnOriginal: false },
-                function (err, documents) {
-                    err ? reject(err) : resolve(documents);
-                }
-            );            
-
-
-    });    
+// Update - deposit/withdraw amount
+async function update(email, amount) {
+    try {
+        const doc = await User.findOneAndUpdate(
+            { email: email },
+            { $inc: { balance: amount } },
+            { new: true }
+        ).exec();
+        return doc;
+    } catch (err) {
+        throw err;
+    }
 }
 
-// all users
-function all(){
-    return new Promise((resolve, reject) => {    
-        const customers = db
-            .collection('users')
-            .find({})
-            .toArray(function(err, docs) {
-                err ? reject(err) : resolve(docs);
-        });    
-    })
+// Get all users
+async function all() {
+    try {
+        const docs = await User.find({}).exec();
+        return docs;
+    } catch (err) {
+        throw err;
+    }
 }
 
-
-module.exports = {create, findOne, find, update, all};
+module.exports = { create, findOne, find, update, all };
