@@ -10,8 +10,8 @@ const client_email = process.env.FIREBASE_CLIENT_EMAIL;
 const client_id = process.env.FIREBASE_CLIENT_ID;
 const auth_uri = process.env.FIREBASE_AUTH_URI;
 const token_uri = process.env.FIREBASE_TOKEN_URI;
-const auth_provider_x509_cert_url = process.env.FIREBASE_AUTH_PROVIDER;
-const client_x509_cert_url = process.env.FIREBASE_CLIENT_CERT;
+const auth_provider_x509_cert_url = process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL;
+const client_x509_cert_url = process.env.FIREBASE_CLIENT_X509_CERT_URL;
 const universe_domain = process.env.FIREBASE_UNIVERSE_DOMAIN;
 
 //credential grants access to firebase services
