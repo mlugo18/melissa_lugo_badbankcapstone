@@ -1,4 +1,4 @@
-# Bad Bank Application Node.js, Express, MongoDB, and Firebase
+# Bad Bank Application Capstone
 
 ## Description: 
 This reposity contains files necessary to run the Bad Bank Express application. The application can be used to build the base of a banking application that allows users to create an account, login via authentication, and includes functionality to deposit and withdraw amounts. 
