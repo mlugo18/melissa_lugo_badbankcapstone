@@ -1,0 +1,23 @@
+{
+  "name": "littledb",
+  "version": "1.0.0",
+  "description": "lowdb sample for 1.125",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "abel@mit.edu",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.19.2",
+    "firebase": "^10.11.1",
+    "firebase-admin": "^12.1.0",
+    "firebase-auth": "^0.1.2",
+    "google-auth-library": "^9.9.0",
+    "lowdb": "^1.0.0",
+    "mongodb": "^3.6.2",
+    "nodemon": "^3.1.0",
+    "react-router-dom": "^6.23.0"
+  }
+}
