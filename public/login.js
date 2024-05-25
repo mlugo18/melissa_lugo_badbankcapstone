@@ -62,34 +62,15 @@ const firebaseConfig = {
     };
   
     const googleAuth = () => {
-        console.log("Google sign in clicked");
-        const provider = new firebase.auth.GoogleAuthProvider();
-    
+        console.log("google sign in clicked");
         firebase.auth().signInWithPopup(provider)
-            .then(async (result) => {
-                const credential = result.credential;
-                const token = credential.accessToken;
-                const user = result.user;
-    
-                // Extract email from user
-                const email = user.email;
-    
-                // Verify if the user exists in the MongoDB database
-                const response = await fetch(`/verifyUser/${email}`);
-                const userExists = await response.json();
-    
-                if (userExists.exists) {
-                    console.log('User exists in the database');
-                    // Proceed with your application's logic for existing user
-                } else {
-                    console.log('User does not exist in the database');
-                    // Handle the case where the user does not exist
-                    // You may choose to create a new user record or notify the user
-                }
-            })
-            .catch((error) => {
-                console.log('Google Authentication error', error);
-            });
+          .then((result) => {
+            const credential = firebase.auth.GoogleAuthProvider.credential(result.credential);
+            const token = credential.accessToken;
+            const user = result.user;
+          }).catch((error) => {
+            console.log('Google Authentication error', error);
+          });
     };
   
     const handleSignOut = () => {
