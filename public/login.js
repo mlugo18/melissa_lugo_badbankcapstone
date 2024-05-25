@@ -2,13 +2,14 @@
 
 //firebase project
 const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.FIREBASE_APP_ID
+    apiKey: "AIzaSyDkuZHa8ge_dWi6iDMdd3R63DeEcCLU5TA",
+    authDomain: "badbankapp-8798e.firebaseapp.com",
+    projectId: "badbankapp-8798e",
+    storageBucket: "badbankapp-8798e.appspot.com",
+    messagingSenderId: "14713719962",
+    appId: "1:14713719962:web:432905985f698ec8dda323"
   };
+  
   
   // Initialize Firebase
   if (!firebase.apps.length) {
