@@ -18,13 +18,12 @@ if (!firebase.apps.length) {
 function CreateAccount() {
   const [show, setShow]           = React.useState(true);
   const [status, setStatus]       = React.useState('');
-  const [name, setName]           = React.useState('');
   const [email, setEmail]         = React.useState('');
   const [password, setPassword]   = React.useState('');
   const [validTransaction, setValidTransaction] = React.useState(false);
 
   function handleChange(){
-      if (name || email || password) {
+      if (email || password) {
         setValidTransaction(true);
       } else {
       setValidTransaction(false);
@@ -45,11 +44,10 @@ function CreateAccount() {
   }
 
   function handleCreate(){
-      console.log(name,email,password);
-      if (!validate(name,     'name'))     return;
+      console.log(email,password);
       if (!validate(email,    'email'))    return;
       if (!validate(password, 'password')) return;
-      const url = `/account/create/${name}/${email}/${password}`;
+      const url = `/account/create/${email}/${password}`;
       (async () => {
           var res  = await fetch(url);
           var data = await res.json();    
@@ -73,7 +71,6 @@ function CreateAccount() {
   };
 
   function clearForm(){
-     setName('');
      setEmail('');
      setPassword('');
      setShow(true);
@@ -87,8 +84,6 @@ function CreateAccount() {
                   header="Create New Account"
                   body={show ? (
                       <>
-                          Name<br />
-                          <input type="input" className="form-control" id="name" placeholder="Enter name" value={name} onChange={e => { setName(e.target.value); handleChange(); }} /><br />
                           Email address<br />
                           <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={e => { setEmail(e.target.value); handleChange(); }} /><br />
                           Password<br />

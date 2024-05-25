@@ -3,7 +3,6 @@ const url         = process.env.MONGODB_URI;
 
 //Defines user schema for user collection
 const userSchema = new mongoose.Schema({
-    name: String,
     email: String,
     password: String,
     balance: { type: Number, default: 0 }
@@ -26,9 +25,9 @@ mongoose.connect(url, connectionParams)
     });
 
 // Create user account
-async function create(name, email, password) {
+async function create(email, password) {
     try {
-        const newUser = new User({ name, email, password });
+        const newUser = new User({ email, password });
         const doc = await newUser.save();
         return doc;
     } catch (err) {
